@@ -1,0 +1,54 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+env/
+.venv/
+.env/
+
+# IDE / Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+*.egg
+
+# Test output / coverage
+.coverage
+htmlcov/
+.pytest_cache/
+
+# Generated key files (jangan commit key asli)
+keys/*.hex
+!keys/.gitkeep
+
+# Encrypted / decrypted output files
+*.enc
+*.dec
+output/
+
+# Sample test files (binary besar)
+tests/sample_files/*.png
+tests/sample_files/*.jpg
+tests/sample_files/*.mp3
+tests/sample_files/*.mp4
+tests/sample_files/*.wav
+tests/sample_files/*.avi
+tests/sample_files/*.exe
+tests/sample_files/*.elf
+tests/sample_files/*.bin
+!tests/sample_files/sample.txt

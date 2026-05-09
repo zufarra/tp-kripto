@@ -1,0 +1,7 @@
+Hello, this is a sample plaintext file for RSA-OAEP-256 testing.
+Ini adalah file teks contoh untuk pengujian enkripsi dan dekripsi.
+
+Line 3: Special characters → © ® ™ € £ ¥
+Line 4: Unicode test — 你好世界 こんにちは 🔐🔑
+Line 5: Numbers 0123456789
+Line 6: The quick brown fox jumps over the lazy dog.

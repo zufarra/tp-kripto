@@ -1,0 +1,8 @@
+# RSA-OAEP-256 Implementation
+# Hanya standard library Python — tidak ada dependency eksternal
+# Python >= 3.8 diperlukan
+#
+# Library yang digunakan (semua bawaan Python):
+#   - os, sys, struct, time, math, random, secrets
+#   - tkinter (GUI)
+#   - unittest (testing)
