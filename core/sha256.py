@@ -1,7 +1,4 @@
-"""SHA-256 dari scratch."""
-
 from __future__ import annotations
-
 import struct
 
 __all__ = ["sha256"]
@@ -92,7 +89,6 @@ def _rotr(value: int, shift: int) -> int:
 
 
 def sha256(data: bytes) -> bytes:
-    """Return SHA-256 digest for the input bytes."""
     if not isinstance(data, (bytes, bytearray, memoryview)):
         raise TypeError("data must be a bytes-like object")
 

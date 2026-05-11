@@ -1,9 +1,5 @@
-"""Miller-Rabin probable prime test."""
-
 from __future__ import annotations
-
 import secrets
-
 from .bigint_math import modexp
 
 __all__ = ["is_prime"]
@@ -38,7 +34,6 @@ _SMALL_PRIMES = (
 
 
 def is_prime(n: int, k: int = 40) -> bool:
-    """Return True if n is probably prime."""
     if n < 2:
         return False
     for prime in _SMALL_PRIMES:

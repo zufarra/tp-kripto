@@ -1,5 +1,3 @@
-"""Entry point aplikasi GUI."""
-
 import tkinter as tk
 from tkinter import ttk
 

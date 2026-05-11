@@ -1,5 +1,3 @@
-"""Tab Key Generator untuk GUI."""
-
 import queue
 import threading
 import time

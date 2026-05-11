@@ -1,10 +1,6 @@
-"""OAEP padding and unpadding for RSA-OAEP-256."""
-
 from __future__ import annotations
-
 import os
 from typing import ByteString
-
 from .mgf1 import mgf1
 from .sha256 import sha256
 
@@ -22,7 +18,6 @@ def _xor_bytes(left: bytes, right: bytes) -> bytes:
 
 
 def oaep_encode(M: bytes, k: int, label: bytes = b"") -> bytes:
-    """Encode message M into an OAEP encoded message of length k octets."""
     if not isinstance(M, (bytes, bytearray, memoryview)):
         raise TypeError("M must be a bytes-like object")
     if not isinstance(label, (bytes, bytearray, memoryview)):
@@ -47,7 +42,6 @@ def oaep_encode(M: bytes, k: int, label: bytes = b"") -> bytes:
 
 
 def oaep_decode(EM: bytes, k: int, label: bytes = b"") -> bytes:
-    """Recover message from an OAEP encoded message."""
     if not isinstance(EM, (bytes, bytearray, memoryview)):
         raise TypeError("EM must be a bytes-like object")
     if not isinstance(label, (bytes, bytearray, memoryview)):

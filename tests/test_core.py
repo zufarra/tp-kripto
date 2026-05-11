@@ -1,9 +1,5 @@
-"""Unit tests for RSA-OAEP-256 core primitives."""
-
 from __future__ import annotations
-
 import unittest
-
 from core.bigint_math import I2OSP, OS2IP, gcd, modexp, modinv
 from core.mgf1 import mgf1
 from core.miller_rabin import is_prime

@@ -1,7 +1,4 @@
-# RSA-OAEP Chunking Logic
-
 from __future__ import annotations
-
 from typing import List
 
 __all__ = [
@@ -17,7 +14,6 @@ CIPHERTEXT_CHUNK = 256
 
 
 def split_encrypt(data: bytes) -> List[bytes]:
-    """Memecah raw data/plaintext menjadi chunk berukuran maksimal 190 bytes."""
     if not data:
         return [b""]
         
@@ -28,7 +24,6 @@ def split_encrypt(data: bytes) -> List[bytes]:
 
 
 def split_decrypt(data: bytes) -> List[bytes]:
-    """Memecah ciphertext menjadi chunk berukuran persis 256 bytes."""
     if not data:
         return []
         
@@ -45,5 +40,4 @@ def split_decrypt(data: bytes) -> List[bytes]:
 
 
 def join_chunks(chunks: List[bytes]) -> bytes:
-    """Menggabungkan list of bytes menjadi satu bytestring utuh."""
     return b"".join(chunks)

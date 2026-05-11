@@ -1,7 +1,4 @@
-"""Mask Generation Function 1 berbasis SHA-256."""
-
 from __future__ import annotations
-
 from .bigint_math import I2OSP
 from .sha256 import sha256
 
@@ -11,7 +8,6 @@ _HASH_LEN = 32
 
 
 def mgf1(seed: bytes, length: int) -> bytes:
-    """Generate mask of requested length using MGF1-SHA256."""
     if not isinstance(seed, (bytes, bytearray, memoryview)):
         raise TypeError("seed must be a bytes-like object")
     if length < 0:

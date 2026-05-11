@@ -1,16 +1,11 @@
-"""Prime generation for RSA."""
-
 from __future__ import annotations
-
 import os
-
 from .miller_rabin import is_prime
 
 __all__ = ["generate_prime"]
 
 
 def generate_prime(bits: int) -> int:
-    """Generate a probable prime with the requested bit length."""
     if bits < 2:
         raise ValueError("bits must be at least 2")
 

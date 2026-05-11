@@ -1,5 +1,3 @@
-"""Tab Enkripsi GUI."""
-
 import queue
 import threading
 import time
