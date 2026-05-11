@@ -26,25 +26,17 @@ __all__ = [
 
 
 def modexp(base: int, exponent: int, modulus: int) -> int:
-    """Manual square-and-multiply modular exponentiation."""
+    """Modular exponentiation menggunakan built-in pow().
+
+    Secara algoritma sama dengan square-and-multiply manual,
+    tetapi built-in pow() diimplementasikan dalam C sehingga
+    jauh lebih cepat untuk bilangan besar (2048-bit RSA).
+    """
     if modulus <= 0:
         raise ValueError("modulus must be positive")
     if exponent < 0:
         raise ValueError("exponent must be non-negative")
-    if modulus == 1:
-        return 0
-
-    base %= modulus
-    result = 1 % modulus
-    exp = exponent
-
-    while exp > 0:
-        if exp & 1:
-            result = (result * base) % modulus
-        base = (base * base) % modulus
-        exp >>= 1
-
-    return result
+    return pow(base, exponent, modulus)
 
 
 def gcd(a: int, b: int) -> int:
