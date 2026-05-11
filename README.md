@@ -37,8 +37,7 @@ rsa_oaep_256/
 │   └── widgets.py      # Reusable widgets
 ├── tests/              # Unit & integration tests
 ├── keys/               # Key pair output (hex format)
-├── main.py             # Entry point
-└── cli.py              # CLI fallback (opsional)
+└── main.py             # Entry point
 ```
 
 ## 🚀 Cara Menjalankan
@@ -47,13 +46,7 @@ rsa_oaep_256/
 # Jalankan GUI
 python main.py
 
-# Jalankan CLI (opsional)
-python cli.py --encrypt --input file.txt --key public_key.hex --output file.enc
-python cli.py --decrypt --input file.enc --key private_key.hex --output file.txt
-
 # Jalankan tests
-python -m pytest tests/
-# atau
 python -m unittest discover tests/
 ```
 
