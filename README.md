@@ -80,15 +80,7 @@ d=<private exponent dalam hex>
 ```
 
 ## ⚠️ Catatan
-
-- **Tidak menggunakan** library kriptografi pihak ketiga (`cryptography`, `pycryptodome`, `hashlib`, dll.)
 - Hanya menggunakan Python standard library
 - Key generation membutuhkan ~5-30 detik (primality testing)
 - Plaintext di atas 190 bytes ditolak; untuk data besar gunakan skema hybrid
 - Ukuran ciphertext: 256 bytes untuk setiap plaintext yang lolos validasi (<= 190 bytes)
-
-## 📚 Referensi
-
-- [RFC 8017](https://tools.ietf.org/html/rfc8017) — PKCS #1 v2.2 (OAEP scheme)
-- [FIPS 180-4](https://csrc.nist.gov/publications/detail/fips/180/4/final) — SHA-256 (NIST)
-- [FIPS 186-5](https://csrc.nist.gov/publications/detail/fips/186/5/final) — Digital Signature Standard
