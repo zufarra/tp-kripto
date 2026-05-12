@@ -1,6 +1,6 @@
 # 🔐 RSA-OAEP-256 Encryption / Decryption
 
-Implementasi software skema enkripsi dan dekripsi berdasarkan standar **RSA-OAEP-256** — dibuat dari nol tanpa library kriptografi pihak ketiga.
+Implementasi software skema enkripsi dan dekripsi berdasarkan standar **RSA-OAEP-256**.
 
 ## 📋 Spesifikasi
 
@@ -79,16 +79,3 @@ e=<public exponent dalam hex>
 n=<2048-bit modulus dalam hex>
 d=<private exponent dalam hex>
 ```
-
-## ⚠️ Catatan
-
-- **Tidak menggunakan** library kriptografi pihak ketiga (`cryptography`, `pycryptodome`, `hashlib`, dll.)
-- Hanya menggunakan Python standard library
-- Key generation membutuhkan ~5-30 detik (primality testing)
-- Ukuran ciphertext: `⌈size/190⌉ × 256` bytes
-
-## 📚 Referensi
-
-- [RFC 8017](https://tools.ietf.org/html/rfc8017) — PKCS #1 v2.2 (OAEP scheme)
-- [FIPS 180-4](https://csrc.nist.gov/publications/detail/fips/180/4/final) — SHA-256 (NIST)
-- [FIPS 186-5](https://csrc.nist.gov/publications/detail/fips/186/5/final) — Digital Signature Standard
