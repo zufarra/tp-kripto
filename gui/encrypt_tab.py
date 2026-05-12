@@ -5,7 +5,7 @@ import tkinter as tk
 from tkinter import ttk, messagebox
 
 from core.rsa_oaep import encrypt_chunk
-from io_handler.chunker import split_encrypt, join_chunks
+from io_handler.chunker import MAX_PLAINTEXT_BYTES
 from io_handler.file_handler import read_file, write_file
 from io_handler.key_parser import load_public_key
 from .widgets import FilePickerWidget, LogWidget, ProgressWidget
@@ -90,25 +90,18 @@ class EncryptTab(ttk.Frame):
             self.queue.put(("log", f"[INFO] Membaca input file: {fin}"))
             plaintext = read_file(fin)
             self.queue.put(("log", f"[INFO] Ukuran plaintext: {len(plaintext)} bytes"))
-            
-            chunks = split_encrypt(plaintext)
-            total_chunks = len(chunks)
-            self.queue.put(("log", f"[INFO] Terpecah menjadi {total_chunks} chunk(s)"))
-            
-            ciphertext_chunks = []
-            for i, chunk in enumerate(chunks):
-                c_chunk = encrypt_chunk(chunk, n, e)
-                ciphertext_chunks.append(c_chunk)
-                
-                percent = ((i + 1) / total_chunks) * 100
-                self.queue.put(("progress", percent))
-                
-                if i % max(1, total_chunks // 10) == 0 or i == total_chunks - 1:
-                    self.queue.put(("log", f"[INFO] Encrypting chunk {i+1}/{total_chunks}..."))
-            
-            self.queue.put(("log", "[INFO] Menyambungkan dan menyimpan ciphertext..."))
-            ciphertext_full = join_chunks(ciphertext_chunks)
+            if len(plaintext) > MAX_PLAINTEXT_BYTES:
+                raise ValueError(
+                    f"Ukuran plaintext maksimal {MAX_PLAINTEXT_BYTES} bytes. "
+                    "RSA-OAEP 2048-bit tidak mendukung chunking otomatis."
+                )
+
+            self.queue.put(("log", "[INFO] Mengenkripsi 1 blok plaintext..."))
+            ciphertext_full = encrypt_chunk(plaintext, n, e)
+
+            self.queue.put(("log", "[INFO] Menyimpan ciphertext..."))
             write_file(fout, ciphertext_full)
+            self.queue.put(("progress", 100))
             self.queue.put(("log", f"[INFO] Ukuran ciphertext: {len(ciphertext_full)} bytes"))
             
             elapsed = time.time() - start_time

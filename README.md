@@ -28,7 +28,7 @@ rsa_oaep_256/
 ├── io_handler/         # File I/O dan key parsing
 │   ├── key_parser.py   # Baca/tulis key file hex
 │   ├── file_handler.py # Binary-safe file read/write
-│   └── chunker.py      # Split & join data chunks
+│   └── chunker.py      # Validasi plaintext & split ciphertext 256-byte
 ├── gui/                # Antarmuka pengguna (tkinter)
 │   ├── app.py          # Entry point GUI
 │   ├── encrypt_tab.py  # Tab enkripsi
@@ -54,10 +54,9 @@ python -m unittest discover tests/
 
 ### Enkripsi
 1. Baca file plaintext (binary-safe)
-2. Split menjadi chunk per 190 bytes
-3. Setiap chunk: OAEP padding → RSA encrypt (modular exponentiation)
-4. Gabung semua ciphertext chunk (masing-masing 256 bytes)
-5. Tulis ke file output
+2. Validasi: plaintext harus <= 190 bytes
+3. OAEP padding → RSA encrypt (modular exponentiation)
+4. Tulis ciphertext 256 bytes ke file output
 
 ### Dekripsi
 1. Baca file ciphertext
@@ -85,7 +84,8 @@ d=<private exponent dalam hex>
 - **Tidak menggunakan** library kriptografi pihak ketiga (`cryptography`, `pycryptodome`, `hashlib`, dll.)
 - Hanya menggunakan Python standard library
 - Key generation membutuhkan ~5-30 detik (primality testing)
-- Ukuran ciphertext: `⌈size/190⌉ × 256` bytes
+- Plaintext di atas 190 bytes ditolak; untuk data besar gunakan skema hybrid
+- Ukuran ciphertext: 256 bytes untuk setiap plaintext yang lolos validasi (<= 190 bytes)
 
 ## 📚 Referensi
 

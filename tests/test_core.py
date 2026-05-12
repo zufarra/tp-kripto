@@ -109,6 +109,12 @@ class TestOAEPAndRSA(unittest.TestCase):
         plaintext = decrypt_chunk(ciphertext, n, d)
         self.assertEqual(plaintext, message)
 
+    def test_rsa_oaep_rejects_plaintext_too_long(self) -> None:
+        (n, e) = self.public_key
+        max_len = (n.bit_length() + 7) // 8 - 2 * 32 - 2
+        with self.assertRaises(OAEPError):
+            encrypt_chunk(b"x" * (max_len + 1), n, e)
+
     def test_rsa_oaep_empty_message(self) -> None:
         (n, e) = self.public_key
         (n2, d) = self.private_key

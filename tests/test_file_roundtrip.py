@@ -1,8 +1,8 @@
 import os
 import unittest
+from core.oaep import OAEPError
 from core.rsa_keygen import generate_keypair
 from core.rsa_oaep import encrypt_chunk, decrypt_chunk
-from io_handler.chunker import split_encrypt, split_decrypt, join_chunks
 
 class TestFileRoundtrip(unittest.TestCase):
     @classmethod
@@ -12,23 +12,16 @@ class TestFileRoundtrip(unittest.TestCase):
         
     def test_roundtrip_random_bytes(self):
         (n, e), (n2, d) = self.keys
-        original_data = os.urandom(500)
-        chunks = split_encrypt(original_data)
-        ciphertext_chunks = []
-        for chunk in chunks:
-            c_chunk = encrypt_chunk(chunk, n, e)
-            ciphertext_chunks.append(c_chunk)
-            
-        full_ciphertext = join_chunks(ciphertext_chunks)
-        self.assertEqual(len(full_ciphertext), 768)
-        chunks_dec = split_decrypt(full_ciphertext)
-        plaintext_chunks = []
-        for chunk in chunks_dec:
-            p_chunk = decrypt_chunk(chunk, n, d)
-            plaintext_chunks.append(p_chunk)
-            
-        recovered_data = join_chunks(plaintext_chunks)
+        original_data = os.urandom(190)
+        full_ciphertext = encrypt_chunk(original_data, n, e)
+        self.assertEqual(len(full_ciphertext), 256)
+        recovered_data = decrypt_chunk(full_ciphertext, n, d)
         self.assertEqual(original_data, recovered_data)
+
+    def test_plaintext_over_190_bytes_is_rejected(self):
+        (n, e), _ = self.keys
+        with self.assertRaises(OAEPError):
+            encrypt_chunk(os.urandom(191), n, e)
 
 if __name__ == '__main__':
     unittest.main()

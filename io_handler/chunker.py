@@ -2,6 +2,7 @@ from __future__ import annotations
 from typing import List
 
 __all__ = [
+    "MAX_PLAINTEXT_BYTES",
     "PLAINTEXT_CHUNK",
     "CIPHERTEXT_CHUNK",
     "split_encrypt",
@@ -9,18 +10,24 @@ __all__ = [
     "join_chunks",
 ]
 
-PLAINTEXT_CHUNK = 190
+# 2048-bit RSA modulus = 256 bytes.
+# With OAEP-SHA256, the maximum plaintext length is 256 - 2*32 - 2 = 190 bytes.
+MAX_PLAINTEXT_BYTES = 190
+PLAINTEXT_CHUNK = MAX_PLAINTEXT_BYTES
 CIPHERTEXT_CHUNK = 256
 
 
 def split_encrypt(data: bytes) -> List[bytes]:
-    if not data:
-        return [b""]
-        
-    chunks = []
-    for i in range(0, len(data), PLAINTEXT_CHUNK):
-        chunks.append(data[i : i + PLAINTEXT_CHUNK])
-    return chunks
+    if not isinstance(data, (bytes, bytearray, memoryview)):
+        raise TypeError("data must be a bytes-like object")
+
+    plaintext = bytes(data)
+    if len(plaintext) > MAX_PLAINTEXT_BYTES:
+        raise ValueError(
+            f"Panjang plaintext maksimal {MAX_PLAINTEXT_BYTES} bytes. "
+            "RSA-OAEP tidak memecah plaintext otomatis."
+        )
+    return [plaintext]
 
 
 def split_decrypt(data: bytes) -> List[bytes]:
