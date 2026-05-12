@@ -22,12 +22,13 @@ def split_encrypt(data: bytes) -> List[bytes]:
         raise TypeError("data must be a bytes-like object")
 
     plaintext = bytes(data)
-    if len(plaintext) > MAX_PLAINTEXT_BYTES:
-        raise ValueError(
-            f"Panjang plaintext maksimal {MAX_PLAINTEXT_BYTES} bytes. "
-            "RSA-OAEP tidak memecah plaintext otomatis."
-        )
-    return [plaintext]
+    if not plaintext:
+        return [b""]
+
+    chunks = []
+    for i in range(0, len(plaintext), PLAINTEXT_CHUNK):
+        chunks.append(plaintext[i : i + PLAINTEXT_CHUNK])
+    return chunks
 
 
 def split_decrypt(data: bytes) -> List[bytes]:
