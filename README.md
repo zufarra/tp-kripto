@@ -1,6 +1,6 @@
 # 🔐 RSA-OAEP-256 Encryption / Decryption
 
-Implementasi software skema enkripsi dan dekripsi berdasarkan standar **RSA-OAEP-256** — dibuat dari nol tanpa library kriptografi pihak ketiga.
+Implementasi software skema enkripsi dan dekripsi berdasarkan standar **RSA-OAEP-256**.
 
 ## 📋 Spesifikasi
 
